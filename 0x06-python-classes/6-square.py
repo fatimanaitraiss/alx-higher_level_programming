@@ -1,114 +1,102 @@
 #!/usr/bin/python3
-"""This module defines a Square class."""
+# -----------------------------------------------------------
+# (C) 2022 Igbinijesu Samuel, Lagos, Nigeria
+# email igbinijesusamuel@gmail.com
+# -----------------------------------------------------------
+"""Square Class.
+
+This module contains a class that defines a square.
+
+Usage Example:
+
+    Square = __import__('6-square').Square
+
+    my_square = Square(3)
+    print(type(my_square))
+    print(my_square.__dict__)
+"""
 
 
 class Square:
-    """
-    Square class that defines a square.
+    """Defines the blueprint of a square.
 
-    Private instance attribute:
-        - size: the size of the square
-
-    Public instance methods:
-        - def area(self): returns the current square area
-        - def my_print(self): prints the square using "#" character
-
-    Properties:
-        - def size(self): to retrieve the size attribute
-        - def size(self, value): to set the size attribute
-
-    Instantiation:
-        __init__(self, size=0)
-
-    Raises:
-        - TypeError: if size is not an integer
-        - ValueError: if size is less than 0
+    Attribute:
+        size (int): An integer representing the object size.
+        position (int, int): The position of the new square.
     """
 
     def __init__(self, size=0, position=(0, 0)):
-        """
-        Initializes a new instance of the Square class.
-
-        Args:
-            size (int): the size of the square (default: 0)
-        """
-        self.size = size
-        self.position = position
+        """An object constructor method."""
+        self.__size = size
+        self.__position = position
 
     @property
     def size(self):
-        """
-        Retrieves the size of the square.
+        """Gets the size private attribute value.
 
         Returns:
-            The size of the square.
+            The size private attribute
         """
         return self.__size
 
     @size.setter
     def size(self, value):
-        """
-        Sets the size of the square.
+        """Sets the size private attribute value.
 
-        Args:
-            value (int): the size of the square.
+        Validates the assignment of the size private attribute.
 
-        Raises:
-            TypeError: if value is not an integer
-            ValueError: if value is less than 0
+        Arg:
+            value: the value to be set
         """
-        if type(value) is not int:
+        if not isinstance(value, int):
             raise TypeError("size must be an integer")
-        elif value < 0:
+        if value < 0:
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = value
+        self.__size = value
 
     @property
     def position(self):
-        """
-        Retrieves the position of the square.
+        """Gets the position private attribute value.
 
         Returns:
-            The position of the square.
+            The position private attribute
         """
         return self.__position
 
     @position.setter
     def position(self, value):
-        """
-        Sets the position of the square.
+        """Sets the position private attribute value.
 
-        Args:
-            value (tuple): the position of the square.
+        Validates the assignment of the position private attribute.
 
-        Raises:
-            TypeError: if value is not a tuple of 2 positive integers
+        Arg:
+            value: the value to be set
         """
-        if not isinstance(value, tuple) or len(value) != 2 \
-           or not isinstance(value[0], int) or value[0] < 0 \
-           or not isinstance(value[1], int) or value[1] < 0:
+        if (
+            not isinstance(value, tuple)
+            or len(value) != 2
+            or not all(isinstance(num, int) for num in value)
+            or not all(num >= 0 for num in value)
+        ):
             raise TypeError("position must be a tuple of 2 positive integers")
-        else:
-            self.__position = value
+        self.__position = value
 
     def area(self):
-        """
-        Computes the area of the square.
+        """A public object method.
 
         Returns:
-            The area of the square.
+            The current square area
         """
-        return self.__size ** 2
+        return self.__size**2
 
     def my_print(self):
-        """
-        Prints the square to the standard output using "#" characters.
-        """
+        """Displays the square object with # character"""
         if self.__size == 0:
             print("")
             return
-        for i in range(self.__position[1]):
+
+        [print("") for i in range(0, self.__position[1])]
+        for i in range(0, self.__size):
+            [print(" ", end="") for j in range(0, self.__position[0])]
+            [print("#", end="") for k in range(0, self.__size)]
             print("")
-        for i in range(self.__size):
-            print(" " * self.__position[0] + '#' * self.__size
