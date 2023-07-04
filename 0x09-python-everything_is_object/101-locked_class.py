@@ -23,4 +23,3 @@ class LockedClass:
             raise AttributeError(f"'LockedClass' object has no attribute\
                                  '{key}'")
         super().__setattr__(key, value)
-
